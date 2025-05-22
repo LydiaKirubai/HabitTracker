@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Habit Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <h1>Habit Tracker</h1>
+  
+  <form method="POST" action="/add">
+    <input type="text" name="habit" placeholder="New habit" required>
+    <button type="submit">Add Habit</button>
+  </form>
+  
+  <ul>
+    {% for habit in habits %}
+      <li>
+        <form method="POST" action="/toggle/{{ loop.index0 }}" style="display:inline;">
+          <button type="submit">{{ '✔️' if habit.done else '❌' }}</button>
+        </form>
+        {{ habit.name }}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</html>
